@@ -1,14 +1,12 @@
 import csv
-import os
+import datetime
 
-import colored
+from colored import fg, attr, bg
 import tabulate
-
-# import tabulate
 
 # Feature 1 - Log a run
 def log_run(runs_file):
-    print("Log a run")
+    print(f"\n{fg('black')}{bg('white')}Log runs:{attr('reset')}\n")
 
     with open(runs_file, "a", newline="") as f:
         writer = csv.writer(f)
@@ -96,16 +94,20 @@ def log_run(runs_file):
 
             else:
                 break
-        
+
         # Input - notes for the run
-            
         notes = input("Enter notes for the run: ")
 
         writer.writerow([title, date, time, distance, time_taken, notes])
 
+# Function to convert...
+def convert_time_to_seconds(time_str):
+    hours, minutes, seconds = map(int, time_str.split(":"))
+    return hours * 3600 + minutes * 60 + seconds
+
 # Feature 2 - View Logs
 def view_log(runs_file):
-        print("View runs")
+        print(f"\n{fg('black')}{bg('white')}View runs:{attr('reset')}\n")
 
         with open(runs_file, "r") as f:
             csv_reader = csv.reader(f)
@@ -114,8 +116,29 @@ def view_log(runs_file):
         
         data_as_lists = [list(map(str, row)) for row in data]
 
+        total_runs = len(data_as_lists)
+        total_distance = sum(float(row[3]) for row in data_as_lists)
+   
+        total_time_taken_seconds = sum(convert_time_to_seconds(row[4]) for row in data_as_lists)
+
+        total_time_hours = total_time_taken_seconds // 3600
+        total_time_minutes = (total_time_taken_seconds % 3600) // 60
+        total_time_seconds = total_time_taken_seconds % 60
+
+        average_pace_seconds_per_km = total_time_taken_seconds / total_distance
+        average_pace_minutes_per_km = average_pace_seconds_per_km / 60
+
         table = tabulate.tabulate(data_as_lists, headers, tablefmt='pretty')
 
         print(table)
+        print(f"\nTotal runs: {total_runs}.")
+        print(f"Total distance: {total_distance} kilometers.")
+        print(f"Total time: {total_time_hours} hours, {total_time_minutes} minutes, {total_time_seconds} seconds.")
+        print(f"Average pace: {average_pace_minutes_per_km:.2f} minutes/kilometers.\n")
+
+
+
+       
+
 
 
