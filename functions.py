@@ -3,7 +3,7 @@ import datetime
 from colored import fg, attr, bg
 import tabulate
 
-# Feature 1 - Log a run
+# Feature 1 - Logging
 def log_run(runs_file):
     # Display feature header
     print(f"\n{fg('black')}{bg('white')}Log runs:{attr('reset')}\n")

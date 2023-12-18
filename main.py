@@ -23,8 +23,8 @@ def main():
     """
     print(ascii_art)
 
-    # Function - Welcome Menu - Prompting user to login or register.
-    def welcome_menu():
+    # Function - output options - instructions
+    def main_menu():
         print(f"\n{fg('black')}{bg('white')}Welcome to RXN! Your personal running journal.{attr('reset')}\n")
         print("Please choose the following options:")
         print("1. Log run")
@@ -38,7 +38,7 @@ def main():
     user_decision = ""
 
     while user_decision != "5":
-        user_decision = welcome_menu()
+        user_decision = main_menu()
         if (user_decision == "1"):
             log_run(runs_file)
         elif (user_decision == "2"):
