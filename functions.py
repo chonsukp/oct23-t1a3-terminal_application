@@ -1,6 +1,9 @@
 import csv
 import os
 
+import colored
+import tabulate
+
 # import tabulate
 
 # Feature 1 - Log a run
@@ -104,7 +107,15 @@ def log_run(runs_file):
 def view_log(runs_file):
         print("View runs")
 
-        if os.path.exists(runs_file):
-            with open(runs_file, "r") as f:
-                reader = csv.read(f)
-                runs = list(reader)
+        with open(runs_file, "r") as f:
+            csv_reader = csv.reader(f)
+            headers = next(csv_reader)
+            data = list(csv_reader)
+        
+        data_as_lists = [list(map(str, row)) for row in data]
+
+        table = tabulate.tabulate(data_as_lists, headers, tablefmt='pretty')
+
+        print(table)
+
+
