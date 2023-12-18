@@ -1,5 +1,5 @@
-TITLE,DATE,TIME,DISTANCE,TIME TAKEN,NOTE
-5k,04/06/2023,07:30,5.0,00:19:44,Best 5k!
-10k,11/07/2023,8:00,10.0,00:40:54,Fastest 10K!
-Half marathon,23/09/2023,6:45,21.0,01:30:33,First half marathon
-Marathon,17/12/2023,7:15,42.0,03:08:42,First marathon :)
+TITLE,DATE,TIME,DISTANCE,TIME TAKEN,NOTES
+5k,04/06/2023,07:30,5.0,00:19:14,Best 5k!
+10k,11/07/2023,15:30,10.0,00:40:54,Fastest 10k!
+Half Marathon,23/09/2023,06:45,21.0,01:30:33,First half marathon!
+Marathon,17/12/2023,06:15,42.0,03:08:42,First marathon completed!

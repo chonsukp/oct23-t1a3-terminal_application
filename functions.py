@@ -1,7 +1,12 @@
 import csv
+import os
+
+# import tabulate
 
 # Feature 1 - Log a run
 def log_run(runs_file):
+    print("Log a run")
+
     with open(runs_file, "a", newline="") as f:
         writer = csv.writer(f)
 
@@ -97,3 +102,4 @@ def log_run(runs_file):
 
 # Feature 2
 # def view_log():
+        # print("View runs")
