@@ -88,7 +88,11 @@ def log_run(runs_file):
 
             else:
                 break
+        
+        # Input - notes for the run
+            
+        notes = input("Enter notes for the run: ")
 
-        writer.writerow([title, date, time, distance, time_taken])
+        writer.writerow([title, date, time, distance, time_taken, notes])
 
        
