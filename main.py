@@ -8,6 +8,7 @@ try:
 
 except FileNotFoundError:
     rxn_file = open(runs_file, "w")
+    rxn_file.write("TITLE,DATE,TIME,DISTANCE,TIME TAKEN,NOTES")
     rxn_file.close()
 
 def main():

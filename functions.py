@@ -3,7 +3,7 @@ import csv
 # Feature 1 - Log a run
 def log_run(runs_file):
     with open(runs_file, "a", newline="") as f:
-        writer = csv.writer(f,)
+        writer = csv.writer(f)
 
         # Input - title of the run
         title = input("Enter a title for the run: ")
