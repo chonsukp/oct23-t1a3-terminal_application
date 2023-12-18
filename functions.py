@@ -42,7 +42,7 @@ def log_run(runs_file):
 
                 hours, minutes = map(int, time_parts)
                 if hours < 0 or hours > 23 or minutes < 0 or minutes > 59:
-                    print("Invalid time value. Please enter a valid time")
+                    print("Invalid time value. Please enter a valid time.")
                     continue
 
             except ValueError:
@@ -57,16 +57,38 @@ def log_run(runs_file):
             try:
                 distance = float(input("Enter the distance of the run in kilometers: "))
                 if distance < 0:
-                    print("Invalid distance value. Please enter a whole number only")
+                    print("Invalid distance value. Please enter a whole number only.")
                     continue
 
             except ValueError:
-                print("Invalid input. Please enter a valid distance in number only")
+                print("Invalid input. Please enter a valid distance in number only.")
                 continue
             
             else:
                 break
 
-        writer.writerow([title, date, time, distance])
+        # Input - time taken for the run
+        while True:
+            try:
+                time_taken = input("Enter the time taken for the run (HH:MM:SS): ")
+
+                time_taken_parts = time_taken.split(":")
+                if len(time_taken_parts) != 3:
+                    print("Invalid time format. Please enter time taken in HH:MM:SS format.")
+                    continue
+
+                hours, minutes, seconds = map(int, time_taken_parts)
+                if hours < 0 or minutes < 0 or seconds < 0:
+                    print("Invalid time input. Please enter a whole number only.")
+                    continue
+
+            except ValueError:
+                print("Invalid input. Please enter a valid time in number only.")
+                continue
+
+            else:
+                break
+
+        writer.writerow([title, date, time, distance, time_taken])
 
        
