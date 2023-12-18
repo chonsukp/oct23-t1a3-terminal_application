@@ -6,7 +6,7 @@ def log_run(runs_file):
         writer = csv.writer(f,)
 
         # Input - title of the run
-        title = input("Enter a title of the run: ")
+        title = input("Enter a title for the run: ")
 
         # Input - date of the run
         while True:
@@ -51,7 +51,22 @@ def log_run(runs_file):
             
             else:
                 break
+        
+        # Input - distance of the run
+        while True:
+            try:
+                distance = float(input("Enter the distance of the run in kilometers: "))
+                if distance < 0:
+                    print("Invalid distance value. Please enter a whole number only")
+                    continue
 
-        writer.writerow([title, date, time])
+            except ValueError:
+                print("Invalid input. Please enter a valid distance in number only")
+                continue
+            
+            else:
+                break
+
+        writer.writerow([title, date, time, distance])
 
        
