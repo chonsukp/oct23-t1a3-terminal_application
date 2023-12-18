@@ -95,4 +95,5 @@ def log_run(runs_file):
 
         writer.writerow([title, date, time, distance, time_taken, notes])
 
-       
+# Feature 2
+# def view_log():
