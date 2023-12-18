@@ -1,4 +1,6 @@
-from functions import log_run
+from colored import fg, attr, bg
+from tabulate import tabulate
+from functions import log_run, view_log
 
 runs_file = "runs.csv"
 
@@ -23,7 +25,7 @@ def main():
 
     # Function - Welcome Menu - Prompting user to login or register.
     def welcome_menu():
-        print("Welcome to RXN! Your personal running journal.\n")
+        print(f"{fg('black')}{bg('white')}Welcome to RXN! Your personal running journal.{attr('reset')}\n")
         print("Please choose the following options:")
         print("1. Log a run")
         print("2. View all runs")
@@ -40,8 +42,7 @@ def main():
         if (user_decision == "1"):
             log_run(runs_file)
         elif (user_decision == "2"):
-            # view_run(runs_file)
-            print("Two")
+            view_log(runs_file)
         elif (user_decision == "3"):
             # Edit_run(runs_file)
             print("Three")

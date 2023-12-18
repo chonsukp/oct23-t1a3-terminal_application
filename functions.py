@@ -100,6 +100,11 @@ def log_run(runs_file):
 
         writer.writerow([title, date, time, distance, time_taken, notes])
 
-# Feature 2
-# def view_log():
-        # print("View runs")
+# Feature 2 - View Logs
+def view_log(runs_file):
+        print("View runs")
+
+        if os.path.exists(runs_file):
+            with open(runs_file, "r") as f:
+                reader = csv.read(f)
+                runs = list(reader)
