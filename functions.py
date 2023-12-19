@@ -3,7 +3,7 @@ import datetime
 from colored import fg, attr, bg
 import tabulate
 
-# FEATURE 1 - Logging
+# Function 1 - Logging
 def log_run(runs_file):
     # Display feature header
     print(f"\n{fg('black')}{bg('white')}Log runs:{attr('reset')}\n")
@@ -54,14 +54,14 @@ def log_run(runs_file):
         writer = csv.writer(f)
         writer.writerow([title, date, distance, time_taken, notes])
 
-# Function to convert time to seconds
+# Function 2 - Convert time to seconds
 def convert_time_to_seconds(time_taken_str):
     # Split the time string into hours, minutes and seconds
     hours, minutes, seconds = map(int, time_taken_str.split(":"))
     # Convert the time to seconds and return the result
     return hours * 3600 + minutes * 60 + seconds
 
-# FEATURE 2 - View Logs
+# Function 3 - View Logs
 def view_log(runs_file):
     # Display feature header
     print(f"\n{fg('black')}{bg('white')}View runs:{attr('reset')}\n")
@@ -106,7 +106,7 @@ def view_log(runs_file):
     print(f"Total time: {total_time_hours} hours, {total_time_minutes} minutes, {total_time_seconds} seconds.")
     print(f"Average pace: {average_pace_minutes_per_km:.2f} minutes/kilometers.")
 
-# FEATURE 3 - Edit Logs
+# Function 4 - Edit Logs
 def edit_log(runs_file):
     print(f"\n{fg('black')}{bg('white')}Edit log:{attr('reset')}\n")
 
@@ -118,6 +118,11 @@ def edit_log(runs_file):
 
     # Convert data to a list of list
     data_as_lists = [list(map(str, row)) for row in data]
+
+     # Check if there are no logs
+    if not data_as_lists:
+        print(f"{fg('black')}{bg('red')}No logs available. Please log a run.{attr('reset')}")
+        return
 
     # Display the existing logs
     table = tabulate.tabulate(data_as_lists, headers, tablefmt='pretty')
@@ -179,8 +184,10 @@ def edit_log(runs_file):
         writer = csv.writer(f)
         writer.writerow(headers)
         writer.writerows(data_as_lists)
+    
+    print(f"\n{fg('black')}{bg('yellow')}Log successfully edited.{attr('reset')}")
 
-# FEATURE 4 - Remove Log
+# Function 5 - Remove Logs
 def remove_log(runs_file):
     print(f"\n{fg('black')}{bg('white')}Remove log:{attr('reset')}\n")
 
@@ -192,6 +199,11 @@ def remove_log(runs_file):
 
     # Convert data to a list of lists
     data_as_lists = [list(map(str, row)) for row in data]
+
+     # Check if there are no logs
+    if not data_as_lists:
+        print(f"{fg('black')}{bg('red')}No logs available. Please log a run.{attr('reset')}")
+        return
 
     # Display the existing log
     table = tabulate.tabulate(data_as_lists, headers, tablefmt='pretty')
@@ -217,5 +229,4 @@ def remove_log(runs_file):
         writer.writerow(headers)
         writer.writerows(data_as_lists)
     
-    print(f"\nRemoved the following log:{removed_row}")
-
+    print(f"\n{fg('black')}{bg('yellow')}Successfully removed the following log:{removed_row}{attr('reset')}")
