@@ -16,7 +16,6 @@ def main():
     """
     Main function to run the RXN application.
     """
-    # ASCII art for app logo
     ascii_art = """
  _______     ____  ____  ____  _____  
 |_   __ \   |_  _||_  _||_   \|_   _| 
@@ -25,15 +24,14 @@ def main():
  _| |  \ \_  _/ /'`\ \_  _| |_\   |_  
 |____| |___||____||____||_____|\____|
     """
+    
+    # Welcome message and app logo
     print(ascii_art)
-
-    # Welcome message
     print("Welcome to RXN! Your personal running journal.")
 
-    # Function - app instruction outputs
     def main_menu():
         """
-        Display the main menu and get user input.
+        Display the main menu instructions to get user input.
         """
         print(f"\n{fg('black')} {bg('white')}Please choose the following options:{attr('reset')}")
         print("1. Log run")
@@ -46,7 +44,7 @@ def main():
 
     user_decision = ""
 
-    # Main menue loop
+    # Main menu loop
     while user_decision != "5":
         user_decision = main_menu()
         if user_decision == "1":
@@ -60,7 +58,6 @@ def main():
         elif user_decision == "5":
             continue
         else:
-            # Invalid input message
             print(f"{fg('black')} {bg('red')}Invalid input. Please try again.{attr('reset')}")
 
     # Exit app message

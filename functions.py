@@ -3,15 +3,16 @@ import datetime
 from colored import fg, attr, bg
 import tabulate
 
-# Function 1 - Logging
 def log_run(runs_file):
-    # Display feature header
+    """
+    Log information about a run and append it to a CSV file.
+    """
     print(f"\n{fg('black')}{bg('white')}Log runs:{attr('reset')}\n")
 
-    # Input - title of the run
+    # User input - title of the run
     title = input("Enter a title for the run: ")
 
-    # Input - date of the run
+    # User input - date of the run
     while True:
         try:
             date_str = input("Enter the date of the run (DD/MM/YYYY): ")
@@ -22,7 +23,7 @@ def log_run(runs_file):
         else:
             break
     
-    # Input - distance of the run
+    # User input - distance of the run
     while True:
         try:
             distance = float(input("Enter the distance of the run in kilometers: "))
@@ -35,7 +36,7 @@ def log_run(runs_file):
         else:
             break
 
-    # Input - time taken for the run
+    # User input - time taken for the run
     while True:
         try:
             time_taken_str = input("Enter the time taken for the run (HH:MM:SS): ")
@@ -46,7 +47,7 @@ def log_run(runs_file):
         else:
             break
 
-    # Input - notes for the run
+    # User input - notes for the run
     notes = input("Enter notes for the run: ")
 
     # Append run inputs to CSV file
@@ -54,16 +55,17 @@ def log_run(runs_file):
         writer = csv.writer(f)
         writer.writerow([title, date, distance, time_taken, notes])
 
-# Function 2 - Convert time to seconds
 def convert_time_to_seconds(time_taken_str):
-    # Split the time string into hours, minutes and seconds
+    """
+    Convert time to seconds and use it to calculate total time and average pace.
+    """
     hours, minutes, seconds = map(int, time_taken_str.split(":"))
-    # Convert the time to seconds and return the result
     return hours * 3600 + minutes * 60 + seconds
 
-# Function 3 - View Logs
 def view_log(runs_file):
-    # Display feature header
+    """
+    View logs and statistics from a CSV file.
+    """
     print(f"\n{fg('black')}{bg('white')}View runs:{attr('reset')}\n")
 
     # Read data from CSV file and store them in a list
@@ -106,11 +108,13 @@ def view_log(runs_file):
     print(f"Total time: {total_time_hours} hours, {total_time_minutes} minutes, {total_time_seconds} seconds.")
     print(f"Average pace: {average_pace_minutes_per_km:.2f} minutes/kilometers.")
 
-# Function 4 - Edit Logs
 def edit_log(runs_file):
+    """
+    Edit a log enry in a CSV file.
+    """
     print(f"\n{fg('black')}{bg('white')}Edit log:{attr('reset')}\n")
 
-    # Load existing data from CSV file
+    # Read existing data from CSV file
     with open(runs_file, "r") as f:
         csv_reader = csv.reader(f)
         headers = next(csv_reader)
@@ -128,7 +132,7 @@ def edit_log(runs_file):
     table = tabulate.tabulate(data_as_lists, headers, tablefmt='pretty')
     print(table)
 
-    # Input - ask user which log to edit
+    # User input - ask user which log to edit
     while True:
         try:
             row_to_edit = int(input("\nEnter the row number to edit: "))
@@ -139,7 +143,7 @@ def edit_log(runs_file):
         except ValueError:
             print("Invalid input. Please enter a valid row number.")
 
-    # Input - ask user for new log inputs
+    # User input - ask user for new log information
     title = input("Enter a new title for the run: ")
 
     while True:
@@ -187,8 +191,10 @@ def edit_log(runs_file):
     
     print(f"\n{fg('black')}{bg('yellow')}Log successfully edited.{attr('reset')}")
 
-# Function 5 - Remove Logs
 def remove_log(runs_file):
+    """
+    Remove a log entry from a CSV file.
+    """
     print(f"\n{fg('black')}{bg('white')}Remove log:{attr('reset')}\n")
 
     # Read existing data from CSV file
@@ -209,7 +215,7 @@ def remove_log(runs_file):
     table = tabulate.tabulate(data_as_lists, headers, tablefmt='pretty')
     print(table)
 
-    # Input - ask user which log to remove
+    # User input - ask user which log to remove
     while True:
         try:
             row_to_remove = int(input("\nEnter the row number to remove: "))
