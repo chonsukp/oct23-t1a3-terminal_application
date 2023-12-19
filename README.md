@@ -1,2 +1,2 @@
 # Terminal Application
-### Running Log
+### Running Journal

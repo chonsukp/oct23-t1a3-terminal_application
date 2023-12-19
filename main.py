@@ -1,10 +1,12 @@
 import csv
+
 from colored import fg, attr, bg
-from functions import log_run, view_log, edit_log, remove_log
+
+from functions import edit_log, log_run, remove_log, view_log
 
 runs_file = "runs.csv"
 
-# Check if runs file exist and if not create one
+# Check if CSV file exist and if not create one
 try:
     with open(runs_file, "r"):
         pass
@@ -27,7 +29,7 @@ def main():
     
     # Welcome message and app logo
     print(ascii_art)
-    print("Welcome to RXN! Your personal running journal.")
+    print(f"\n{fg('black')}{bg('yellow')}Welcome to RXN! Your personal running journal.{attr('reset')}")
 
     def main_menu():
         """

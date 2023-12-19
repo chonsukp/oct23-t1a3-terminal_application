@@ -1,4 +1,5 @@
 ___pycache__
 .venv
 runs.csv
+.pytest_cache
 .DS_Store

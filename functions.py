@@ -1,6 +1,8 @@
 import csv
 import datetime
+
 from colored import fg, attr, bg
+
 import tabulate
 
 def log_run(runs_file):
@@ -18,7 +20,7 @@ def log_run(runs_file):
             date_str = input("Enter the date of the run (DD/MM/YYYY): ")
             date = datetime.datetime.strptime(date_str, "%d/%m/%Y").date()
         except ValueError:
-            print(f"{fg('black')}{bg('red')}Invalid date format. Please enter date in DD/MM/YYYY format.{attr('reset')}")
+            print(f"{fg('black')}{bg('red')}Invalid input. Please enter a valid date.{attr('reset')}")
             continue
         else:
             break
@@ -28,10 +30,10 @@ def log_run(runs_file):
         try:
             distance = float(input("Enter the distance of the run in kilometers: "))
             if distance < 0:
-                print("Invalid distance value. Please enter a whole number.")
+                print(f"{fg('black')}{bg('red')}Invalid input. Please enter a non-negative distance.{attr('reset')}")
                 continue
         except ValueError:
-            print("Invalid input. Please enter a valid distance in number only.")
+            print(f"{fg('black')}{bg('red')}Invalid input. Please enter a valid distance.{attr('reset')}")
             continue
         else:
             break
@@ -42,7 +44,7 @@ def log_run(runs_file):
             time_taken_str = input("Enter the time taken for the run (HH:MM:SS): ")
             time_taken = datetime.datetime.strptime(time_taken_str, "%H:%M:%S").time()
         except ValueError:
-            print("Invalid input. Please enter a valid time in HH:MM:SS format.")
+            print(f"{fg('black')}{bg('red')}Invalid input. Please enter a valid time.{attr('reset')}")
             continue
         else:
             break
@@ -82,6 +84,9 @@ def view_log(runs_file):
         print(f"{fg('black')}{bg('red')}No logs available. Please log a run.{attr('reset')}")
         return
 
+    # Add row numbers to the data
+    table_with_row_numbers = [[i] + row for i, row in enumerate(data_as_lists, start = 0)]
+
     # Calculate total runs, total distance, total time taken and average pace
     total_runs = len(data_as_lists)
     total_distance = sum(float(row[2]) for row in data_as_lists)
@@ -98,11 +103,12 @@ def view_log(runs_file):
     average_pace_seconds_per_km = total_time_taken_seconds / total_distance
     average_pace_minutes_per_km = average_pace_seconds_per_km / 60
 
-    # Create a table using tabulate module 
-    table = tabulate.tabulate(data_as_lists, headers, tablefmt='pretty')
+    # Create a table using tabulate module
+    table = tabulate.tabulate(table_with_row_numbers, ["Row"] + headers, tablefmt='pretty')
 
     # Display the table and run stats
     print(table)
+    print(f"\n{fg('black')}{bg('yellow')}Stats:{attr('reset')}")
     print(f"\nTotal runs: {total_runs}.")
     print(f"Total distance: {total_distance} kilometers.")
     print(f"Total time: {total_time_hours} hours, {total_time_minutes} minutes, {total_time_seconds} seconds.")
@@ -123,13 +129,16 @@ def edit_log(runs_file):
     # Convert data to a list of list
     data_as_lists = [list(map(str, row)) for row in data]
 
-     # Check if there are no logs
+    # Add row numbers to the data
+    table_with_row_numbers = [[i] + row for i, row in enumerate(data_as_lists, start = 0)]
+
+    # Check if there are no logs
     if not data_as_lists:
         print(f"{fg('black')}{bg('red')}No logs available. Please log a run.{attr('reset')}")
         return
-
-    # Display the existing logs
-    table = tabulate.tabulate(data_as_lists, headers, tablefmt='pretty')
+    
+    # Create a table using tabulate module
+    table = tabulate.tabulate(table_with_row_numbers, ["Row"] + headers, tablefmt='pretty')
     print(table)
 
     # User input - ask user which log to edit
@@ -139,9 +148,9 @@ def edit_log(runs_file):
             if 0 <= row_to_edit < len(data_as_lists):
                 break
             else:
-                print("Invalid row number. Please enter a valid row number.")
+                print(f"{fg('black')}{bg('red')}Invalid row number. Please enter a valid row number.{attr('reset')}")
         except ValueError:
-            print("Invalid input. Please enter a valid row number.")
+            print(f"{fg('black')}{bg('red')}Invalid input. Please enter a valid row number.{attr('reset')}")
 
     # User input - ask user for new log information
     title = input("Enter a new title for the run: ")
@@ -151,7 +160,7 @@ def edit_log(runs_file):
             date_str = input("Enter the new date of the run (DD/MM/YYYY): ")
             date = datetime.datetime.strptime(date_str, "%d/%m/%Y").date()
         except ValueError:
-            print("Invalid date format. Please enter date in DD/MM/YYYY format.")
+            print(f"{fg('black')}{bg('red')}Invalid input. Please enter a valid date.{attr('reset')}")
             continue
         else:
             break
@@ -160,10 +169,10 @@ def edit_log(runs_file):
             try:
                 distance = float(input("Enter the new distance of the run in kilometers: "))
                 if distance < 0:
-                    print("Invalid distance value. Please enter a whole number.")
+                    print(f"{fg('black')}{bg('red')}Invalid input. Please enter a non-negative distance.{attr('reset')}")
                     continue
             except ValueError:
-                print("Invalid input. Please enter a valid distance in number only.")
+                print(f"{fg('black')}{bg('red')}Invalid input. Please enter a valid distance.{attr('reset')}")
                 continue
             else:
                 break
@@ -173,7 +182,7 @@ def edit_log(runs_file):
                 time_taken_str = input("Enter the new time taken for the run (HH:MM:SS): ")
                 time_taken = datetime.datetime.strptime(time_taken_str, "%H:%M:%S").time()
             except ValueError:
-                print("Invalid input. Please enter a valid time in HH:MM:SS format.")
+                print(f"{fg('black')}{bg('red')}Invalid input. Please enter a valid time.{attr('reset')}")
                 continue
             else:
                 break
@@ -189,7 +198,7 @@ def edit_log(runs_file):
         writer.writerow(headers)
         writer.writerows(data_as_lists)
     
-    print(f"\n{fg('black')}{bg('yellow')}Log successfully edited.{attr('reset')}")
+    print(f"\n{fg('black')}{bg('yellow')}Successfully edited log row {row_to_edit}.{attr('reset')}")
 
 def remove_log(runs_file):
     """
@@ -203,28 +212,31 @@ def remove_log(runs_file):
         headers = next(csv_reader)
         data = list(csv_reader)
 
-    # Convert data to a list of lists
+    # Convert data to a list of list
     data_as_lists = [list(map(str, row)) for row in data]
 
-     # Check if there are no logs
+    # Add row numbers to the data
+    table_with_row_numbers = [[i] + row for i, row in enumerate(data_as_lists, start = 0)]
+
+    # Check if there are no logs
     if not data_as_lists:
         print(f"{fg('black')}{bg('red')}No logs available. Please log a run.{attr('reset')}")
         return
-
-    # Display the existing log
-    table = tabulate.tabulate(data_as_lists, headers, tablefmt='pretty')
+    
+    # Create a table using tabulate module
+    table = tabulate.tabulate(table_with_row_numbers, ["Row"] + headers, tablefmt='pretty')
     print(table)
 
     # User input - ask user which log to remove
     while True:
         try:
-            row_to_remove = int(input("\nEnter the row number to remove: "))
+            row_to_remove = int(input("\nEnter the row number to edit: "))
             if 0 <= row_to_remove < len(data_as_lists):
                 break
             else:
-                print("Invalid row number. Please enter a valid row number.")
+                print(f"{fg('black')}{bg('red')}Invalid row number. Please enter a valid row number.{attr('reset')}")
         except ValueError:
-            print("Invalid input. Please enter a valid row number.")
+            print(f"{fg('black')}{bg('red')}Invalid input. Please enter a valid row number.{attr('reset')}")
     
     # Remove the selected row 
     removed_row = data_as_lists.pop(row_to_remove)
@@ -235,4 +247,4 @@ def remove_log(runs_file):
         writer.writerow(headers)
         writer.writerows(data_as_lists)
     
-    print(f"\n{fg('black')}{bg('yellow')}Successfully removed the following log:{removed_row}{attr('reset')}")
+    print(f"\n{fg('black')}{bg('yellow')}Successfully removed log row {row_to_remove}.{attr('reset')}")
