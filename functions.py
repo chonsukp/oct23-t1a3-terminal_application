@@ -56,7 +56,7 @@ def log_run(runs_file):
         writer.writerow([title, date, distance, time_taken, notes])
 
 def convert_time_to_seconds(time_taken_str):
-    """Convert time to seconds and use it to calculate total time and average pace."""
+    """Convert time to seconds and use it to calculate total time and average pace in View log function."""
     hours, minutes, seconds = map(int, time_taken_str.split(":"))
     return hours * 3600 + minutes * 60 + seconds
 
