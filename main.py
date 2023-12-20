@@ -15,9 +15,7 @@ except FileNotFoundError:
         rxn_file.write("TITLE,DATE,DISTANCE,TIME TAKEN,NOTES\n")
 
 def main():
-    """
-    Main function to run the RXN application.
-    """
+    """Main function to run the RXN application"""
     ascii_art = """
  _______     ____  ____  ____  _____  
 |_   __ \   |_  _||_  _||_   \|_   _| 
@@ -32,9 +30,7 @@ def main():
     print(f"\n{fg('black')}{bg('yellow')}Welcome to RXN! Your personal running journal.{attr('reset')}")
 
     def main_menu():
-        """
-        Display the main menu instructions to get user input.
-        """
+        """Display the main menu instructions to get user input"""
         print(f"\n{fg('black')} {bg('white')}Please choose the following options:{attr('reset')}")
         print("1. Log run")
         print("2. View log")

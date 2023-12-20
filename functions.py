@@ -6,15 +6,13 @@ from colored import fg, attr, bg
 import tabulate
 
 def log_run(runs_file):
-    """
-    Log information about a run and append it to a CSV file.
-    """
+    """Log information about a run and append it to a CSV file."""
     print(f"\n{fg('black')}{bg('white')}Log runs:{attr('reset')}\n")
 
-    # User input - title of the run
+    # Ask for user to input title of the run.
     title = input("Enter a title for the run: ")
 
-    # User input - date of the run
+    # Ask user to input date of the run.
     while True:
         try:
             date_str = input("Enter the date of the run (DD/MM/YYYY): ")
@@ -25,7 +23,7 @@ def log_run(runs_file):
         else:
             break
     
-    # User input - distance of the run
+    # Ask user to input distance of the run.
     while True:
         try:
             distance = float(input("Enter the distance of the run in kilometers: "))
@@ -38,7 +36,7 @@ def log_run(runs_file):
         else:
             break
 
-    # User input - time taken for the run
+    # Ask user to input time taken for the run.
     while True:
         try:
             time_taken_str = input("Enter the time taken for the run (HH:MM:SS): ")
@@ -49,64 +47,60 @@ def log_run(runs_file):
         else:
             break
 
-    # User input - notes for the run
+    # Ask user to input notes for the run.
     notes = input("Enter notes for the run: ")
 
-    # Append run inputs to CSV file
+    # Add new run inputs to CSV file.
     with open(runs_file, "a", newline="") as f:
         writer = csv.writer(f)
         writer.writerow([title, date, distance, time_taken, notes])
 
 def convert_time_to_seconds(time_taken_str):
-    """
-    Convert time to seconds and use it to calculate total time and average pace.
-    """
+    """Convert time to seconds and use it to calculate total time and average pace."""
     hours, minutes, seconds = map(int, time_taken_str.split(":"))
     return hours * 3600 + minutes * 60 + seconds
 
 def view_log(runs_file):
-    """
-    View logs and statistics from a CSV file.
-    """
+    """View logs and statistics from a CSV file."""
     print(f"\n{fg('black')}{bg('white')}View runs:{attr('reset')}\n")
 
-    # Read data from CSV file and store them in a list
+    # Read data from CSV file and store them in a list.
     with open(runs_file, "r") as f:
         csv_reader = csv.reader(f)
         headers = next(csv_reader)
         data = list(csv_reader)
 
-    # Convert data to a list of lists
+    # Convert data to a list of lists.
     data_as_lists = [list(map(str, row)) for row in data]
 
-    # Check if there are no logs
+    # Check if there are no logs.
     if not data_as_lists:
         print(f"{fg('black')}{bg('red')}No logs available. Please log a run.{attr('reset')}")
         return
 
-    # Add row numbers to the data
+    # Add row numbers to the data.
     table_with_row_numbers = [[i] + row for i, row in enumerate(data_as_lists, start = 0)]
 
-    # Calculate total runs, total distance, total time taken and average pace
+    # Calculate total runs, total distance, total time taken and average pace.
     total_runs = len(data_as_lists)
     total_distance = sum(float(row[2]) for row in data_as_lists)
 
-    # Convert total time taken to senconds
+    # Convert total time taken to senconds.
     total_time_taken_seconds = sum(convert_time_to_seconds(row[3]) for row in data_as_lists)
 
-    # Convert total time from seconds to hours, minutes and seconds 
+    # Convert total time from seconds to hours, minutes and seconds. 
     total_time_hours = total_time_taken_seconds // 3600
     total_time_minutes = (total_time_taken_seconds % 3600) // 60
     total_time_seconds = total_time_taken_seconds % 60
 
-    # Calculate average pace in minutes per kilometers
+    # Calculate average pace in minutes per kilometers.
     average_pace_seconds_per_km = total_time_taken_seconds / total_distance
     average_pace_minutes_per_km = average_pace_seconds_per_km / 60
 
-    # Create a table using tabulate module
+    # Create a table using tabulate module.
     table = tabulate.tabulate(table_with_row_numbers, ["Row"] + headers, tablefmt='pretty')
 
-    # Display the table and run stats
+    # Display the table and run stats.
     print(table)
     print(f"\n{fg('black')}{bg('yellow')}Stats:{attr('reset')}")
     print(f"\nTotal runs: {total_runs}.")
@@ -115,33 +109,31 @@ def view_log(runs_file):
     print(f"Average pace: {average_pace_minutes_per_km:.2f} minutes/kilometers.")
 
 def edit_log(runs_file):
-    """
-    Edit a log enry in a CSV file.
-    """
+    """Edit a log enry in a CSV file."""
     print(f"\n{fg('black')}{bg('white')}Edit log:{attr('reset')}\n")
 
-    # Read existing data from CSV file
+    # Read existing data from CSV file.
     with open(runs_file, "r") as f:
         csv_reader = csv.reader(f)
         headers = next(csv_reader)
         data = list(csv_reader)
 
-    # Convert data to a list of list
+    # Convert data to a list of list.
     data_as_lists = [list(map(str, row)) for row in data]
 
-    # Add row numbers to the data
+    # Add row numbers to the data.
     table_with_row_numbers = [[i] + row for i, row in enumerate(data_as_lists, start = 0)]
 
-    # Check if there are no logs
+    # Check if there are no logs.
     if not data_as_lists:
         print(f"{fg('black')}{bg('red')}No logs available. Please log a run.{attr('reset')}")
         return
     
-    # Create a table using tabulate module
+    # Create a table using tabulate module.
     table = tabulate.tabulate(table_with_row_numbers, ["Row"] + headers, tablefmt='pretty')
     print(table)
 
-    # User input - ask user which log to edit
+    # Ask user to input which log to edit by inputting table row number.
     while True:
         try:
             row_to_edit = int(input("\nEnter the row number to edit: "))
@@ -152,7 +144,7 @@ def edit_log(runs_file):
         except ValueError:
             print(f"{fg('black')}{bg('red')}Invalid input. Please enter a valid row number.{attr('reset')}")
 
-    # User input - ask user for new log information
+    # Ask user to input new log information.
     title = input("Enter a new title for the run: ")
 
     while True:
@@ -189,10 +181,10 @@ def edit_log(runs_file):
 
     notes = input("Enter new notes for the run: ")
 
-    # Update the selected row
+    # Update the selected row in table.
     data_as_lists[row_to_edit] = [title, date, distance, time_taken, notes]
 
-    # Save the updated data
+    # Save the updated data.
     with open(runs_file, "w", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(headers)
@@ -201,33 +193,31 @@ def edit_log(runs_file):
     print(f"\n{fg('black')}{bg('yellow')}Successfully edited log row {row_to_edit}.{attr('reset')}")
 
 def remove_log(runs_file):
-    """
-    Remove a log entry from a CSV file.
-    """
+    """Remove a log entry from a CSV file."""
     print(f"\n{fg('black')}{bg('white')}Remove log:{attr('reset')}\n")
 
-    # Read existing data from CSV file
+    # Read existing data from CSV file.
     with open(runs_file, "r") as f:
         csv_reader = csv.reader(f)
         headers = next(csv_reader)
         data = list(csv_reader)
 
-    # Convert data to a list of list
+    # Convert data to a list of lists.
     data_as_lists = [list(map(str, row)) for row in data]
 
-    # Add row numbers to the data
+    # Add row numbers to the data.
     table_with_row_numbers = [[i] + row for i, row in enumerate(data_as_lists, start = 0)]
 
-    # Check if there are no logs
+    # Check if there are no logs.
     if not data_as_lists:
         print(f"{fg('black')}{bg('red')}No logs available. Please log a run.{attr('reset')}")
         return
     
-    # Create a table using tabulate module
+    # Create a table using tabulate module.
     table = tabulate.tabulate(table_with_row_numbers, ["Row"] + headers, tablefmt='pretty')
     print(table)
 
-    # User input - ask user which log to remove
+    # Aask user which log to remove by choosing inputting table row number.
     while True:
         try:
             row_to_remove = int(input("\nEnter the row number to edit: "))
@@ -238,10 +228,10 @@ def remove_log(runs_file):
         except ValueError:
             print(f"{fg('black')}{bg('red')}Invalid input. Please enter a valid row number.{attr('reset')}")
     
-    # Remove the selected row 
+    # Remove the selected row from table.
     removed_row = data_as_lists.pop(row_to_remove)
 
-    # Save the updated data
+    # Save the updated data.
     with open(runs_file, "w", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(headers)
