@@ -5,7 +5,6 @@ import pytest
 
 from functions import convert_time_to_seconds, log_run, view_log
 
-runs_file = "test_runs.csv"
 
 def test_basic():
     """Basic test to see if pytest is working."""
@@ -19,7 +18,7 @@ def test_log_run(capsys):
     test_runs_file = "test_log_run.csv"
 
     # Simulate user inputs for Log run function.
-    user_inputs = [
+    test_user_inputs = [
         "Test Run",
         "21/12/2023",
         "5.0",
@@ -28,7 +27,7 @@ def test_log_run(capsys):
     ]
 
     # Use patch function to mock the user inputs function with given information.
-    with patch("builtins.input", side_effect = user_inputs):
+    with patch("builtins.input", side_effect = test_user_inputs):
         log_run(test_runs_file)
 
     # Capture the outputs for assertions.
