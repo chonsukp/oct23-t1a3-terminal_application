@@ -5,6 +5,7 @@ from colored import fg, attr, bg
 
 import tabulate
 
+
 def log_run(runs_file):
     """Log information about a run and append it to a CSV file."""
     print(f"\n{fg('black')}{bg('white')}Log runs:{attr('reset')}\n")
@@ -54,6 +55,8 @@ def log_run(runs_file):
     with open(runs_file, "a", newline="") as f:
         writer = csv.writer(f)
         writer.writerow([title, date, distance, time_taken, notes])
+    
+    print(f"\n{fg('black')}{bg('yellow')}Successfully logged run.{attr('reset')}")
 
 def convert_time_to_seconds(time_taken_str):
     """Convert time to seconds and use it to calculate total time and average pace in View log function."""

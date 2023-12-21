@@ -4,6 +4,7 @@ from colored import fg, attr, bg
 
 from functions import edit_log, log_run, remove_log, view_log
 
+
 runs_file = "runs.csv"
 
 # Check if CSV file exist and if not create one
