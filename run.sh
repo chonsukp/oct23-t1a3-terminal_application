@@ -24,13 +24,13 @@ then
             # Deactivate the virtual environment.
             deactivate
         else
-            echo "Failed to install required packages."
+            echo "Error! Failed to install required packages."
         fi
     else
-        echo "Failed to create the virtual environment."
+        echo "Error! Failed to create the virtual environment."
     fi
 else
-    echo "Python 3 is not installed. Please install Python 3 before running this application."
+    echo "Error! Python 3 is not installed. Please install Python 3 before running this application."
 fi
 
 
