@@ -16,7 +16,7 @@ def log_run(runs_file):
     # Ask user to input date of the run.
     while True:
         try:
-            date_str = input("Enter the date of the run (DD/MM/YYYY): ")
+            date_str = input("\nEnter the date of the run (DD/MM/YYYY): ")
             date = datetime.datetime.strptime(date_str, "%d/%m/%Y").date()
         except ValueError:
             print(f"{fg('black')}{bg('red')}Invalid input. Please enter a valid date.{attr('reset')}")
@@ -27,7 +27,7 @@ def log_run(runs_file):
     # Ask user to input distance of the run.
     while True:
         try:
-            distance = float(input("Enter the distance of the run in kilometers: "))
+            distance = float(input("\nEnter the distance of the run in kilometers: "))
             if distance < 0:
                 print(f"{fg('black')}{bg('red')}Invalid input. Please enter a non-negative distance.{attr('reset')}")
                 continue
@@ -40,7 +40,7 @@ def log_run(runs_file):
     # Ask user to input time taken for the run.
     while True:
         try:
-            time_taken_str = input("Enter the time taken for the run (HH:MM:SS): ")
+            time_taken_str = input("\nEnter the time taken for the run (HH:MM:SS): ")
             time_taken = datetime.datetime.strptime(time_taken_str, "%H:%M:%S").time()
         except ValueError:
             print(f"{fg('black')}{bg('red')}Invalid input. Please enter a valid time.{attr('reset')}")
@@ -49,7 +49,7 @@ def log_run(runs_file):
             break
 
     # Ask user to input notes for the run.
-    notes = input("Enter notes for the run: ")
+    notes = input("\nEnter notes for the run: ")
 
     # Add new run inputs to CSV file.
     with open(runs_file, "a", newline="") as f:
@@ -161,26 +161,26 @@ def edit_log(runs_file):
             break
 
     while True:
-            try:
-                distance = float(input("Enter the new distance of the run in kilometers: "))
-                if distance < 0:
-                    print(f"{fg('black')}{bg('red')}Invalid input. Please enter a non-negative distance.{attr('reset')}")
-                    continue
-            except ValueError:
-                print(f"{fg('black')}{bg('red')}Invalid input. Please enter a valid distance.{attr('reset')}")
+        try:
+            distance = float(input("Enter the new distance of the run in kilometers: "))
+            if distance < 0:
+                print(f"{fg('black')}{bg('red')}Invalid input. Please enter a non-negative distance.{attr('reset')}")
                 continue
-            else:
-                break
+        except ValueError:
+            print(f"{fg('black')}{bg('red')}Invalid input. Please enter a valid distance.{attr('reset')}")
+            continue
+        else:
+            break
 
     while True:
-            try:
-                time_taken_str = input("Enter the new time taken for the run (HH:MM:SS): ")
-                time_taken = datetime.datetime.strptime(time_taken_str, "%H:%M:%S").time()
-            except ValueError:
-                print(f"{fg('black')}{bg('red')}Invalid input. Please enter a valid time.{attr('reset')}")
-                continue
-            else:
-                break
+        try:
+            time_taken_str = input("Enter the new time taken for the run (HH:MM:SS): ")
+            time_taken = datetime.datetime.strptime(time_taken_str, "%H:%M:%S").time()
+        except ValueError:
+            print(f"{fg('black')}{bg('red')}Invalid input. Please enter a valid time.{attr('reset')}")
+            continue
+        else:
+            break
 
     notes = input("Enter new notes for the run: ")
 

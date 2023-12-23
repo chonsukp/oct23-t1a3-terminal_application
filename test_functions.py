@@ -8,7 +8,7 @@ from functions import convert_time_to_seconds, log_run, view_log
 
 def test_basic():
     """Basic test to see if pytest is working."""
-
+    # Expected result.
     assert "Hello, World!" == "Hello, World!"
 
 def test_log_run(capsys):
@@ -73,7 +73,3 @@ def test_view_log(capsys):
 
         # Remove the test CSV file.
         os.remove("test_view_log.csv")
-
-
-
-

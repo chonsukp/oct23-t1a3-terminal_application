@@ -14,9 +14,6 @@ then
         if echo "Installing required packages..."
         then pip3 install -r requirements.txt
 
-            # Clear the terminal screen for clean console.
-            clear
-
             # Runs the application.
             echo "Application is now running..."
             python3 main.py
@@ -32,5 +29,3 @@ then
 else
     echo "Error! Python 3 is not installed. Please install Python 3 before running this application."
 fi
-
-
