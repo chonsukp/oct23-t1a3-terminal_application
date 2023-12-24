@@ -148,11 +148,11 @@ def edit_log(runs_file):
             print(f"{fg('black')}{bg('red')}Invalid input. Please enter a valid row number.{attr('reset')}")
 
     # Ask user to input new log information.
-    title = input("Enter a new title for the run: ")
+    title = input("\nEnter a new title for the run: ")
 
     while True:
         try:
-            date_str = input("Enter the new date of the run (DD/MM/YYYY): ")
+            date_str = input("\nEnter the new date of the run (DD/MM/YYYY): ")
             date = datetime.datetime.strptime(date_str, "%d/%m/%Y").date()
         except ValueError:
             print(f"{fg('black')}{bg('red')}Invalid input. Please enter a valid date.{attr('reset')}")
@@ -162,7 +162,7 @@ def edit_log(runs_file):
 
     while True:
         try:
-            distance = float(input("Enter the new distance of the run in kilometers: "))
+            distance = float(input("\nEnter the new distance of the run in kilometers: "))
             if distance < 0:
                 print(f"{fg('black')}{bg('red')}Invalid input. Please enter a non-negative distance.{attr('reset')}")
                 continue
@@ -174,7 +174,7 @@ def edit_log(runs_file):
 
     while True:
         try:
-            time_taken_str = input("Enter the new time taken for the run (HH:MM:SS): ")
+            time_taken_str = input("\nEnter the new time taken for the run (HH:MM:SS): ")
             time_taken = datetime.datetime.strptime(time_taken_str, "%H:%M:%S").time()
         except ValueError:
             print(f"{fg('black')}{bg('red')}Invalid input. Please enter a valid time.{attr('reset')}")
@@ -182,7 +182,7 @@ def edit_log(runs_file):
         else:
             break
 
-    notes = input("Enter new notes for the run: ")
+    notes = input("\nEnter new notes for the run: ")
 
     # Update the selected row in table.
     data_as_lists[row_to_edit] = [title, date, distance, time_taken, notes]
@@ -223,7 +223,7 @@ def remove_log(runs_file):
     # Aask user which log to remove by choosing inputting table row number.
     while True:
         try:
-            row_to_remove = int(input("\nEnter the row number to edit: "))
+            row_to_remove = int(input("\nEnter the row number to remove: "))
             if 0 <= row_to_remove < len(data_as_lists):
                 break
             else:
